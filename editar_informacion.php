@@ -10,18 +10,24 @@ if  (isset($_GET['id'])) {
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $title = $row['title'];
+    $objeto = $row['objeto'];
     $description = $row['description'];
+    $imagen = $row['imagen'];
+    $correo = $row['correo'];
   }
 }
 
 if (isset($_POST['update'])) {
   $id = $_GET['id'];
   $title= $_POST['title'];
+  $objeto= $_POST['objeto'];
   $description = $_POST['description'];
+  $imagen= $_POST['imagen'];
+  $correo= $_POST['correo'];
 
-  $query = "UPDATE task set title = '$title', description = '$description' WHERE id=$id";
+  $query = "UPDATE task set title = '$title', objeto = '$objeto', description = '$description', imagen = '$imagen', correo = '$correo' WHERE id=$id";
   mysqli_query($conn, $query);
-  $_SESSION['message'] = 'Task Updated Successfully';
+  $_SESSION['message'] = 'Se edito exitosamente';
   $_SESSION['message_type'] = 'warning';
   header('Location: index.php');
 }
@@ -37,7 +43,16 @@ if (isset($_POST['update'])) {
           <input name="title" type="text" class="form-control" value="<?php echo $title; ?>" placeholder="Update Title">
         </div>
         <div class="form-group">
+        <textarea name="objeto" class="form-control" cols="30" rows="10"><?php echo $objeto;?></textarea>
+        </div>
+        <div class="form-group">
         <textarea name="description" class="form-control" cols="30" rows="10"><?php echo $description;?></textarea>
+        </div>
+        <div class="form-group">
+        <textarea name="imagen" class="form-control" cols="30" rows="10"><?php echo $imagen;?></textarea>
+        </div>
+        <div class="form-group">
+        <textarea name="correo" class="form-control" cols="30" rows="10"><?php echo $correo;?></textarea>
         </div>
         <button class="btn-success" name="update">
           Update
