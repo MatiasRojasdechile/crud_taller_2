@@ -3,6 +3,7 @@
 <?php include('includes/header.php'); ?>
 
 <main class="container p-4">
+  
   <div class="row">
     <div class="col-md-4">
       <!-- MESSAGES -->
@@ -23,9 +24,19 @@
             <input type="text" name="title" class="form-control" placeholder="Nombre Dueño" autofocus>
           </div>
           <div class="form-group">
-            <textarea name="description" rows="2" class="form-control" placeholder="Objeto/Descripcion "></textarea>
+            <textarea name="objeto" rows="2" class="form-control" placeholder="Objeto"></textarea>
           </div>
-          <input type="submit" name="save_task" class="btn btn-success btn-block" value="Save Task">
+          <div class="form-group">
+            <textarea name="description" rows="2" class="form-control" placeholder="Descripcion"></textarea>
+          </div>
+          <div class="form-group">
+            <textarea name="imagen" rows="2" class="form-control" placeholder="imagen"></textarea>
+          </div>
+          <div class="form-group">
+            <textarea name="correo" rows="2" class="form-control" placeholder="correo"></textarea>
+          </div>
+          <input type="submit" name="save_task" class="btn btn-success btn-block" value="Guardar">
+          <a href="https://www.youtube.com/watch?v=sP6QWjbJbGY" class="btn btn-primary btn-block">Ver Tabla</a>
         </form>
       </div>
     </div>
@@ -34,7 +45,10 @@
         <thead>
           <tr>
             <th>Dueño</th>
-            <th>Objeto y Descripcion</th>
+            <th>Objeto</th>
+            <th>Descripcion</th>
+            <th>imagen</th>
+            <th>Correo</th>
             <th>Fecha creado</th>
             <th>Editar/Borrar</th>
           </tr>
@@ -48,7 +62,10 @@
           while($row = mysqli_fetch_assoc($result_tasks)) { ?>
           <tr>
             <td><?php echo $row['title']; ?></td>
+            <td><?php echo $row['objeto']; ?></td>
             <td><?php echo $row['description']; ?></td>
+            <td><?php echo $row['imagen']; ?></td>
+            <td><?php echo $row['correo']; ?></td>
             <td><?php echo $row['created_at']; ?></td>
             <td>
               <a href="edit.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
