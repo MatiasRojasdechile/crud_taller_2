@@ -19,7 +19,7 @@
 
       <!-- ADD TASK FORM -->
       <div class="card card-body">
-        <form action="save_task.php" method="POST">
+        <form action="save_task.php" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <input type="text" name="title" class="form-control" placeholder="Nombre Dueño" autofocus>
           </div>
@@ -30,13 +30,13 @@
             <textarea name="description" rows="2" class="form-control" placeholder="Descripcion"></textarea>
           </div>
           <div class="form-group">
-            <textarea name="imagen" rows="2" class="form-control" placeholder="imagen"></textarea>
+            <input type= "file" name="imagen">
           </div>
           <div class="form-group">
             <textarea name="correo" rows="2" class="form-control" placeholder="correo"></textarea>
           </div>
           <input type="submit" name="save_task" class="btn btn-success btn-block" value="Guardar">
-          <a href="https://www.youtube.com/watch?v=sP6QWjbJbGY" class="btn btn-primary btn-block">Ver Tabla</a>
+          <a href="https://www.youtube.com/watch?v=02M9bLDUizI" class="btn btn-primary btn-block">Ver Tabla</a>
         </form>
       </div>
     </div>
@@ -64,7 +64,11 @@
             <td><?php echo $row['title']; ?></td>
             <td><?php echo $row['objeto']; ?></td>
             <td><?php echo $row['description']; ?></td>
-            <td><?php echo $row['imagen']; ?></td>
+            <td>
+              <a href="<?php echo $row['imagen']; ?>" target="_blank">
+              <img src="<?php echo $row['imagen']; ?>" alt="Imagen" style="max-width: 100px; max-height: 100px;">
+              </a>
+            </td>
             <td><?php echo $row['correo']; ?></td>
             <td><?php echo $row['created_at']; ?></td>
             <td>
