@@ -2,10 +2,11 @@
 include("db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_task'])) {
-    $title = $_POST['title'];
+    $dueno = $_POST['dueno'];
+    $carnet = $_POST['carnet'];
     $objeto = $_POST['objeto'];
-    $description = $_POST['description'];
-    $correo = $_POST['correo'];
+    $descripcion = $_POST['descripcion'];
+    $guardia = $_POST['guardia'];
 
     // Manejo del archivo
     $imagen_link = '';  // Inicializa la variable de enlace de imagen
@@ -20,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_task'])) {
         } else {
             $_SESSION['message'] = 'Error al cargar la imagen.';
             $_SESSION['message_type'] = 'danger';
-            header('Location: index.php');
+            header('Location: tabla.php');
             exit();
         }
     }
 
     // Inserta los datos en la base de datos
-    $query = "INSERT INTO task (title, objeto, description, imagen, correo) VALUES ('$title', '$objeto', '$description', '$imagen_link', '$correo')";
+    $query = "INSERT INTO task (dueno, carnet, objeto, descripcion, imagen, guardia) VALUES ('$dueno', '$carnet', '$objeto', '$descripcion', '$imagen_link', '$guardia')";
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
