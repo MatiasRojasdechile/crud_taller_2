@@ -1,8 +1,9 @@
 <?php
 include("db.php");
-$title = '';
+$dueno = '';
+$carnet = '';
 $objeto = '';
-$description = '';
+$descripcion = '';
 $imagen = '';
 $correo = '';
 
@@ -12,20 +13,21 @@ if  (isset($_GET['id'])) {
   $result = mysqli_query($conn, $query);
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
-    $title = $row['title'];
-    $objeto = $row['objeto'];
-    $description = $row['description'];
-    $imagen = $row['imagen'];
-    $correo = $row['correo'];
+    $dueno = trim($row['dueno']);
+    $carnet = trim($row['carnet']);
+    $objeto = trim($row['objeto']);
+    $descripcion = trim($row['descripcion']);
+    $imagen = trim($row['imagen']);
+    $guardia = trim($row['guardia']);
   }
 }
 
 if (isset($_POST['update'])) {
-  $id = $_GET['id'];
-  $title = $_POST['title'];
-  $objeto = $_POST['objeto'];
-  $description = $_POST['description'];
-  $correo = $_POST['correo'];
+  $dueno = trim($_POST['dueno']);
+  $carnet = trim($_POST['carnet']);
+  $objeto = trim($_POST['objeto']);
+  $descripcion = trim($_POST['descripcion']);
+  $guardia = trim($_POST['guardia']);
 
   // Manejo de la imagen (similar al código en save_task.php)
   $imagen_link = $imagen;  // Mantén el enlace actual si no se actualiza la imagen
@@ -45,11 +47,10 @@ if (isset($_POST['update'])) {
   }
 
   // Actualiza los datos en la base de datos
-  $query = "UPDATE task SET title = '$title', objeto = '$objeto', description = '$description', imagen = '$imagen_link', correo = '$correo' WHERE id=$id";
+  $query = "UPDATE task SET dueno = '$dueno',carnet = '$carnet', objeto = '$objeto',descripcion = '$descripcion', imagen = '$imagen_link', guardia = '$guardia' WHERE id=$id";
   mysqli_query($conn, $query);
-  $_SESSION['message'] = 'Se editó exitosamente';
   $_SESSION['message_type'] = 'warning';
-  header('Location: index.php');
+  header('Location: tabla.php');
 }
 ?>
 <?php include('includes/header.php'); ?>
@@ -59,19 +60,22 @@ if (isset($_POST['update'])) {
       <div class="card card-body">
         <form action="edit.php?id=<?php echo $_GET['id']; ?>" method="POST" enctype="multipart/form-data">
           <div class="form-group">
-            <input name="title" type="text" class="form-control" value="<?php echo $title; ?>" placeholder="Update Title">
+              <input name="dueno" type="text" class="form-control" value="<?php echo $dueno; ?>" placeholder="Nombre Dueño" readonly>
           </div>
           <div class="form-group">
-            <textarea name="objeto" class="form-control" cols="30" rows="10"><?php echo $objeto; ?></textarea>
+              <textarea name="carnet" class="form-control" cols="30" rows="2" placeholder="Numero carnet" readonly><?php echo $carnet; ?></textarea>
           </div>
           <div class="form-group">
-            <textarea name="description" class="form-control" cols="30" rows="10"><?php echo $description; ?></textarea>
+            <textarea name="objeto" class="form-control" cols="30" rows="2" placeholder="Objeto"><?php echo $objeto; ?></textarea> 
+          </div>
+          <div class="form-group">
+            <textarea name="descripcion" class="form-control" cols="30" rows="3" placeholder="Descripcion"><?php echo $descripcion; ?></textarea>
           </div>
           <div class="form-group">
             <input type="file" name="imagen" accept="image/*">
           </div>
           <div class="form-group">
-            <textarea name="correo" class="form-control" cols="30" rows="10"><?php echo $correo; ?></textarea>
+            <textarea name="guardia" class="form-control" cols="30" rows="2" placeholder="Guardia"><?php echo $guardia; ?></textarea>
           </div>
           <button class="btn-success" name="update">
             Guardar
